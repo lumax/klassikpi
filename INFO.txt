@@ -1,0 +1,6 @@
+PI aufsetzen nach: 
+http://www.forum-raspberrypi.de/Thread-tutorial-music-player-daemon-mpd-und-mpc-auf-dem-raspberry-pi
+
+
+pi@raspberrypi ~ $ sudo apt-get install python-dev
+pi@raspberrypi ~ $ sudo apt-get install python-rpi.gpio 
