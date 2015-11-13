@@ -1,5 +1,5 @@
 import time
-import RPi.GPIO as GPIO
+import RPIO as GPIO
 
 # RPi.GPIO Layout verwenden (wie Pin-Nummern)
 GPIO.setmode(GPIO.BOARD)
@@ -8,12 +8,19 @@ GPIO.setmode(GPIO.BOARD)
 GPIO.setup(18, GPIO.IN)
 
 # Pin 11 (GPIO 17) auf Output setzen
-GPIO.setup(11, GPIO.OUT)
+#GPIO.setup(11, GPIO.OUT)
 
+
+"""
 # Dauersschleife
 while 1:
+
   # LED immer ausmachen
   GPIO.output(11, GPIO.HIGH)
+
+  time.sleep(0.1)
+
+
 
   # GPIO lesen
   if GPIO.input(18) == GPIO.HIGH:
@@ -28,3 +35,4 @@ while 1:
 
     # Warte 100 ms
     time.sleep(0.1)
+"""
