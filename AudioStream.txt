@@ -1,0 +1,12 @@
+http://stream.klassikradio.de/live/mp3-128/www.klassikradio.de
+http://stream.klassikradio.de/movie/mp3-128/www.klassikradio.de
+http://stream.klassikradio.de/newclassics/mp3-128/www.klassikradio.de
+http://stream.klassikradio.de/chor/mp3-128/www.klassikradio.de
+http://stream.klassikradio.de/lounge/mp3-128/www.klassikradio.de
+http://stream.klassikradio.de/lounge-beat/mp3-128/www.klassikradio.de
+http://stream.klassikradio.de/smooth/mp3-128/www.klassikradio.de
+http://stream.klassikradio.de/rockclassic/mp3-128/www.klassikradio.de
+http://stream.klassikradio.de/schiller/mp3-128/www.klassikradio.de
+http://stream.klassikradio.de/christmas/mp3-128/www.klassikradio.de
+http://stream.klassikradio.de/klassikrock/mp3-128/www.klassikradio.de
+
