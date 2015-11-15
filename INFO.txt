@@ -1,11 +1,47 @@
--Documentation
--PI setup
+---Documentation
+---Webserver
+---PI setup
 
 
 Documentation:
 
 http://pythonhosted.org/RPIO/index.html
 
+http://www.raspberry-projects.com/pi/software_utilities/phpapache
+
+
+---Webserver
+
+sudo apt-get install apache2 php5
+
+sudo a2enmod rewrite
+sudo nano /etc/apache2/sites-enabled/000-default
+
+Change "AllowOverwrite None" to "AllowOverwrite All"
+
+<Directory /var/www/>
+    Options Indexes FollowSymLinks MultiViews
+    AllowOverride All
+    Order allow,deny
+    allow from all
+</Directory>
+
+-Add .py to Apache:
+
+sudo nano /etc/apache2/sites-enabled/000-default
+
+<Directory "/usr/lib/cgi-bin">
+AddHandler cgi-script .py  <--- funktioniert irgendwie nicht, script.cgi geht!
+...
+
+sudo service apache2 reload
+
+Script erzeugen und .cgi enden lassen! und is das Verzeichnis /usr/lib/cgi-bin kopieren
+
+
+
+---TODOs
+PythonScripte mit Endung .py vom Apache erkennen lassen
 
 PI aufsetzen nach: 
 http://www.forum-raspberrypi.de/Thread-tutorial-music-player-daemon-mpd-und-mpc-auf-dem-raspberry-pi
