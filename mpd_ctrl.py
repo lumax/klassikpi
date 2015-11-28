@@ -1,3 +1,9 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+### -*- coding: iso-8859-1 -*-
+
+import subprocess
+
 #mpd_ctrl.py control mpd over mpc
 
 class mpcCtrl:
@@ -7,9 +13,11 @@ class mpcCtrl:
     def __init__(self, name):
         self.position = 0   # instance variable unique to each instance
         self.sender = []    # creates a new empty list
+        self.clear()
 
     def addSender(self, sender):
         self.sender.append(sender)
+        self.position = len(self.sender)-1
 
     def getPosition(self):
         return self.position
@@ -19,12 +27,29 @@ class mpcCtrl:
             return self.sender[self.position]
         else:
             return 0
-        
 
+    def play(self):
+        s = self.getSenderAtCurrentPos()
+        if s:
+            subprocess.call(["mpc","add",s])
+            #subprocess.call(["mpc","playlist"])
+            subprocess.call(["mpc","play"])
+
+    def nextSender(self):
+        self.position = self.position+1
+        if self.position >= len(self.sender):
+            self.position = 0;
+        print 'nextSender',self.position
+        self.clear()
+        self.play()
+#        subprocess.call(["mpc","help"])
+        
     def printSender(self):
         for string in self.sender:
             print 'Sender',string
 
+    def clear(self):
+        subprocess.call(["mpc","clear"])
 
 sender = [
     "http://stream.klassikradio.de/live/mp3-128/www.klassikradio.de",
@@ -56,7 +81,19 @@ print 'Die momentane Position ist:',ctrl.getPosition()
 #ctrl.printSender()
 print 'SenderAtCurrentPos:',ctrl.getSenderAtCurrentPos()
     
+help = 'mögliche Eingaben: help, exit, next'
 
+while 1:    # infinite loop
+    n = raw_input()
+    if n == "exit":
+        ctrl.clear()
+        break  # stops the loop
+    elif n == "next" or n == "n":
+        ctrl.nextSender()
+    elif n == "help":
+        print help
+    else:
+       print help
 """
 # Dauersschleife
 while 1:
