@@ -1,8 +1,39 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-#import time
+import time
 import RPi.GPIO as GPIO
+from mpd_ctrl import mpcCtrl
+
+ctrl = mpcCtrl('mpc Kontrolle')
+
+sender = [
+  "http://stream.klassikradio.de/live/mp3-128/www.klassikradio.de",
+  "http://stream.klassikradio.de/movie/mp3-128/www.klassikradio.de",
+  "http://stream.klassikradio.de/newclassics/mp3-128/www.klassikradio.de",
+  "http://stream.klassikradio.de/chor/mp3-128/www.klassikradio.de",
+  "http://stream.klassikradio.de/lounge/mp3-128/www.klassikradio.de",
+  "http://stream.klassikradio.de/lounge-beat/mp3-128/www.klassikradio.de",
+  "http://stream.klassikradio.de/smooth/mp3-128/www.klassikradio.de",
+  "http://stream.klassikradio.de/rockclassic/mp3-128/www.klassikradio.de",
+  "http://stream.klassikradio.de/nature/mp3-128/www.klassikradio.de",
+  "http://stream.klassikradio.de/schiller/mp3-128/www.klassikradio.de",
+  "http://stream.klassikradio.de/christmas/mp3-128/www.klassikradio.de",
+  "http://stream.klassikradio.de/healing/mp3-128/www.klassikradio.de",
+  "http://stream.klassikradio.de/barock/mp3-128/www.klassikradio.de",
+  "http://stream.klassikradio.de/legenden/mp3-128/www.klassikradio.de",
+  "http://stream.klassikradio.de/dreams/mp3-128/www.klassikradio.de",
+  "http://stream.klassikradio.de/piano/mp3-128/www.klassikradio.de",
+  "http://stream.klassikradio.de/friendshome/mp3-128/www.klassikradio.de",
+  "http://stream.klassikradio.de/klassikrock/mp3-128/www.klassikradio.de"]
+
+
+def sender_init():
+  global ctrl
+  global sender
+
+  for s in sender:
+    ctrl.addSender(s)
 
 def gpio_init():
 
@@ -21,6 +52,7 @@ def gpio_init():
   # LED anmachen
   GPIO.output(11, GPIO.HIGH)
 
+
 BtnHigh = True
 BtnLowCnt = 0
 BtnLowCntExit = 0
@@ -33,7 +65,7 @@ def gpio_dispatcher():#alle 100 ms
   if GPIO.input(18) == GPIO.HIGH:
     if not BtnHigh:
       BtnHigh = True
-      print 'gpio changed to High, time in Seconds = ',(BtnLowCnt*0.1) 
+      #print 'gpio changed to High, time in Seconds = ',(BtnLowCnt*0.1) 
       BtnLowCntExit = 0
       if BtnLowCnt >= 5:
         BtnLowCnt = 0
@@ -53,8 +85,12 @@ def gpio_dispatcher():#alle 100 ms
   return 0
 
 gpio_init()
+sender_init()
+ctrl.nextSender()
 
-counter = 0
+#print 'Die momentane Position ist:',ctrl.getPosition()
+#print 'SenderAtCurrentPos:',ctrl.getSenderAtCurrentPos()
+
 # Dauersschleife
 while 1:
   time.sleep(0.1)
@@ -62,28 +98,15 @@ while 1:
   n = gpio_dispatcher()
 
   if n == 'EXIT':
-    print 'EXIT received from gpio_dispatcher'
+    #print 'EXIT'
+    ctrl.clear()
     break
   elif n == 'RELEASE':
-    print 'RELEASE received from gpio_dispatcher'
+    #print 'RELEASE'
+    ctrl.nextSender()
   elif n == 'LONG RELEASE':
-    print 'LONG RELEASE received from gpio_dispatcher'
-
-#  counter = counter+1
-  if counter >= 100:
-    break # stops the loop
-
-  #print('gpio 18 event_detected')
-  counter = counter+1
-
-  # GPIO lesen
-#  if GPIO.input(18) == GPIO.HIGH:
-#    print 'gpio high'
-
-#  elif GPIO.input(18) == GPIO.LOW:
-#    print 'gpio low'
-
-
+    #print 'LONG RELEASE'
+    ctrl.prevSender()
 
 #hinter dem while loop
 GPIO.cleanup(18)

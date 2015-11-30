@@ -4,23 +4,32 @@
 from mpd_ctrl import mpcCtrl
 
 sender = [
-    "http://stream.klassikradio.de/live/mp3-128/www.klassikradio.de",
-    "http://stream.klassikradio.de/movie/mp3-128/www.klassikradio.de",
-    "http://stream.klassikradio.de/newclassics/mp3-128/www.klassikradio.de",
-    "http://stream.klassikradio.de/chor/mp3-128/www.klassikradio.de",
-    "http://stream.klassikradio.de/lounge/mp3-128/www.klassikradio.de",
-    "http://stream.klassikradio.de/lounge-beat/mp3-128/www.klassikradio.de",
-    "http://stream.klassikradio.de/smooth/mp3-128/www.klassikradio.de",
-    "http://stream.klassikradio.de/rockclassic/mp3-128/www.klassikradio.de",
-    "http://stream.klassikradio.de/schiller/mp3-128/www.klassikradio.de",
-    "http://stream.klassikradio.de/christmas/mp3-128/www.klassikradio.de",
-    "http://stream.klassikradio.de/klassikrock/mp3-128/www.klassikradio.de"]
+  "http://stream.klassikradio.de/live/mp3-128/www.klassikradio.de",
+  "http://stream.klassikradio.de/movie/mp3-128/www.klassikradio.de",
+  "http://stream.klassikradio.de/newclassics/mp3-128/www.klassikradio.de",
+  "http://stream.klassikradio.de/chor/mp3-128/www.klassikradio.de",
+  "http://stream.klassikradio.de/lounge/mp3-128/www.klassikradio.de",
+  "http://stream.klassikradio.de/lounge-beat/mp3-128/www.klassikradio.de",
+  "http://stream.klassikradio.de/smooth/mp3-128/www.klassikradio.de",
+  "http://stream.klassikradio.de/rockclassic/mp3-128/www.klassikradio.de",
+  "http://stream.klassikradio.de/nature/mp3-128/www.klassikradio.de",
+  "http://stream.klassikradio.de/schiller/mp3-128/www.klassikradio.de",
+  "http://stream.klassikradio.de/christmas/mp3-128/www.klassikradio.de",
+  "http://stream.klassikradio.de/healing/mp3-128/www.klassikradio.de",
+  "http://stream.klassikradio.de/barock/mp3-128/www.klassikradio.de",
+  "http://stream.klassikradio.de/legenden/mp3-128/www.klassikradio.de",
+  "http://stream.klassikradio.de/dreams/mp3-128/www.klassikradio.de",
+  "http://stream.klassikradio.de/piano/mp3-128/www.klassikradio.de",
+  "http://stream.klassikradio.de/friendshome/mp3-128/www.klassikradio.de",
+  "http://stream.klassikradio.de/klassikrock/mp3-128/www.klassikradio.de"]
 
 print 'Du hast',len(sender),'Sender in der Senderliste'
 
 ctrl = mpcCtrl('derName')
 
 print 'SenderAtCurrentPos:',ctrl.getSenderAtCurrentPos()
+
+ctrl.nextSender()
 
 for s in sender:
     ctrl.addSender(s)
