@@ -1,0 +1,31 @@
+#!/bin/bash
+### BEGIN INIT INFO
+# Provides:          /opt/klassikpi/pi_gpio.py
+# Required-Start:    
+# Required-Stop:     
+# Default-Start:     4
+# Default-Stop:      0 1 6
+# Short-Description: pi gpio klassikradio
+# Description:       pi gpio klassikradio ueber mpd und mpc
+### END INIT INFO
+
+#Aktivieren, auch für den start mit:
+#sudo update-rc.d klassikpi defaults
+ 
+# Actions
+case "$1" in
+    start)
+        # START
+	echo "start"
+	sudo python /opt/klassikpi/pi_gpio.py &
+        ;;
+    stop)
+	# Stop
+        killall python
+        ;;
+    *)
+        echo "Usage: /etc/init.d/klassikpi start|stop"
+        ;;
+esac
+ 
+exit 0
