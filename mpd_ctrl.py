@@ -14,6 +14,7 @@ class mpcCtrl:
         self.position = 0   # instance variable unique to each instance
         self.verbose = 1
         self.sender = []    # creates a new empty list
+        subprocess.call(["mpc","volume","100"])
         self.clear()
 
     def addSender(self, sender):

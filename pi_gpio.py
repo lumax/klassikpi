@@ -3,6 +3,7 @@
 
 import time
 import RPi.GPIO as GPIO
+import subprocess
 from mpd_ctrl import mpcCtrl
 
 ctrl = mpcCtrl('mpc Kontrolle')
@@ -85,6 +86,7 @@ def gpio_dispatcher():#alle 100 ms
   return 0
 
 gpio_init()
+time.sleep(5) # etwas Zeit für eth0
 sender_init()
 ctrl.nextSender()
 
@@ -109,6 +111,10 @@ while 1:
     ctrl.prevSender()
 
 #hinter dem while loop
+
+#subprocess.call(["echo","shutdown -h now"])
+subprocess.call(["shutdown","-h","now"])
+
 GPIO.cleanup(18)
 GPIO.cleanup(11)
 
