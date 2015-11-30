@@ -27,16 +27,19 @@ def gpio_dispatcher():#alle 100 ms
       BtnHigh = True
       print 'gpio changed to High, time in Seconds = ',(BtnLowCnt*0.1) 
       BtnLowCnt = 0
-      print 'gpio changed to High, Button released'
+      #print 'gpio changed to High, Button released'
+      return 'RELEASE'
   elif GPIO.input(18) == GPIO.LOW:
     if BtnHigh:
-      BtnHigh = False
-      print 'gpio changed to Low'
-    if not BtnHigh:
-      BtnLowCnt = BtnLowCnt + 1
+      BtnHigh = False      
+      #print 'gpio changed to Low'
+    BtnLowCnt = BtnLowCnt + 1
 
   if BtnLowCnt >= 30:
-     print "EXIT Signal"
+     #print "EXIT Signal"
+     return 'EXIT'
+
+  return 0
 
 gpio_init()
 
@@ -45,7 +48,12 @@ counter = 0
 while 1:
   time.sleep(0.1)
 
-  gpio_dispatcher()
+  n = gpio_dispatcher()
+
+  if n == 'EXIT':
+    print 'EXIT received from gpio_dispatcher'
+  elif n == 'RELEASE':
+    print 'RELEASE received from gpio_dispatcher'
 
 #  counter = counter+1
   if counter >= 100:
