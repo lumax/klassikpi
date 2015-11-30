@@ -12,6 +12,7 @@ class mpcCtrl:
 
     def __init__(self, name):
         self.position = 0   # instance variable unique to each instance
+        self.verbose = 1
         self.sender = []    # creates a new empty list
         self.clear()
 
@@ -39,10 +40,19 @@ class mpcCtrl:
         self.position = self.position+1
         if self.position >= len(self.sender):
             self.position = 0;
-        print 'nextSender',self.position
+        if 1 == self.verbose:
+            print 'nextSender',self.position
         self.clear()
         self.play()
-#        subprocess.call(["mpc","help"])
+
+    def prevSender(self):
+        self.position = self.position-1
+        if self.position < 0:
+            self.position = len(self.sender)-1;
+        if 1 == self.verbose:
+            print 'prevSender',self.position
+        self.clear()
+        self.play()
         
     def printSender(self):
         for string in self.sender:
@@ -81,7 +91,7 @@ print 'Die momentane Position ist:',ctrl.getPosition()
 #ctrl.printSender()
 print 'SenderAtCurrentPos:',ctrl.getSenderAtCurrentPos()
     
-help = 'mögliche Eingaben: help, exit, next'
+help = 'mögliche Eingaben: help, exit, next, prev'
 
 while 1:    # infinite loop
     n = raw_input()
@@ -90,10 +100,15 @@ while 1:    # infinite loop
         break  # stops the loop
     elif n == "next" or n == "n":
         ctrl.nextSender()
+    elif n == "prev" or n == "p":
+        ctrl.prevSender()
     elif n == "help":
         print help
     else:
        print help
+
+#nach der Dauerschleife
+
 """
 # Dauersschleife
 while 1:
