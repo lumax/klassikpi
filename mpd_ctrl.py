@@ -37,6 +37,8 @@ class mpcCtrl:
             subprocess.call(["mpc","play"])
 
     def nextSender(self):
+        if 0 == len(self.sender):
+            return
         self.position = self.position+1
         if self.position >= len(self.sender):
             self.position = 0;
@@ -46,6 +48,8 @@ class mpcCtrl:
         self.play()
 
     def prevSender(self):
+        if 0 == len(self.sender):
+            return
         self.position = self.position-1
         if self.position < 0:
             self.position = len(self.sender)-1;
